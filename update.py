@@ -2,6 +2,9 @@ import streamlit as st
 import random
 import datetime
 
+# Move this line to the top
+st.set_page_config(page_title="MindEase", layout="wide")
+
 # Apply custom CSS for color themes and dark mode
 def apply_css():
     st.markdown(
