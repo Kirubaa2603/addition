@@ -63,13 +63,13 @@ st.markdown(
     """
     <style>
         .sidebar .sidebar-content {
-            background-color: #E6E6FA !important; /* Lavender */
-            color: black !important;
+            background-color: #E6E6FA !important;
         }
         .affirmation-box {
-            background-color: #F5F5F5; /* Light Gray */
+            background-color: #f9f9f9;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 10px;
+            text-align: center;
             font-weight: bold;
             color: black !important;
         }
@@ -82,11 +82,11 @@ st.title("🌿 Welcome to MindEase")
 st.subheader("Your personal companion for motivation, study tips, and self-care.")
 
 # Sidebar
-st.sidebar.title("MindEase Tools")
-if st.sidebar.button("💡 Need a boost? Inspire Me!"):
+st.sidebar.title("💜 MindEase Tools")
+if st.sidebar.button("✨ Need a boost? Inspire Me!"):
     st.sidebar.write(random.choice(motivation_prompts))
 
-if st.sidebar.button("🧘 Feeling anxious? Anxiety Relief"):
+if st.sidebar.button("😌 Feeling anxious? Anxiety Relief"):
     st.sidebar.write(random.choice(anxiety_relief_prompts))
 
 if st.sidebar.button("📚 Study Tips"):
@@ -99,12 +99,12 @@ if st.sidebar.button("💆 Self-care Tips"):
 st.subheader("How do you feel today?")
 emotion = st.selectbox("Select your emotion:", ["Happy", "Sad", "Anxious", "Motivated", "Frustrated", "Tired"])
 prompt_mapping = {
-    "Happy": "😊 Keep spreading the joy! Happiness is contagious.",
-    "Sad": "💙 It’s okay to feel sad. Take it one step at a time, and be kind to yourself.",
+    "Happy": "Keep spreading the joy! Happiness is contagious.",
+    "Sad": "It’s okay to feel sad. Take it one step at a time, and be kind to yourself.",
     "Anxious": random.choice(anxiety_relief_prompts),
-    "Motivated": "🚀 Keep up the great work! Channel your motivation into your goals.",
-    "Frustrated": "😤 Take a deep breath. A short break might help clear your mind.",
-    "Tired": "😴 Rest is just as important as work. Give yourself a moment to recharge."
+    "Motivated": "Keep up the great work! Channel your motivation into your goals.",
+    "Frustrated": "Take a deep breath. A short break might help clear your mind.",
+    "Tired": "Rest is just as important as work. Give yourself a moment to recharge."
 }
 st.write(prompt_mapping[emotion])
 
