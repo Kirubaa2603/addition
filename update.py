@@ -18,51 +18,57 @@ motivation_prompts = [
 
 # Anxiety Relief Prompts
 anxiety_relief_prompts = [
-    "🌿 Take a deep breath. Inhale for 4 seconds, hold for 4, and exhale for 6.",
-    "🌿 Close your eyes and picture your happy place. Stay there for a moment.",
-    "🌿 Write down what’s bothering you and set it aside for later.",
-    "🌿 Try progressive muscle relaxation – tense each muscle, then relax it.",
-    "🌿 Listen to calming music or nature sounds to ease your mind.",
-    "🌿 Step outside and take a short walk to clear your thoughts.",
-    "🌿 Drink a warm cup of tea or water. Hydration helps relaxation.",
-    "🌿 Focus on the present. What are five things you can see and hear?",
-    "🌿 Talk to someone you trust about what’s making you anxious.",
-    "🌿 Remind yourself: You have overcome challenges before, and you will again."
+    "🌱 Take a deep breath. Inhale for 4 seconds, hold for 4, and exhale for 6.",
+    "🌱 Close your eyes and picture your happy place. Stay there for a moment.",
+    "🌱 Write down what’s bothering you and set it aside for later.",
+    "🌱 Try progressive muscle relaxation – tense each muscle, then relax it.",
+    "🌱 Listen to calming music or nature sounds to ease your mind.",
+    "🌱 Step outside and take a short walk to clear your thoughts.",
+    "🌱 Drink a warm cup of tea or water. Hydration helps relaxation.",
+    "🌱 Focus on the present. What are five things you can see and hear?",
+    "🌱 Talk to someone you trust about what’s making you anxious.",
+    "🌱 Remind yourself: You have overcome challenges before, and you will again."
 ]
 
 st.set_page_config(page_title="MindEase", layout="wide")
-st.markdown("""
+st.title("🌿 Welcome to MindEase")
+st.subheader("Your personal companion for motivation, study tips, and self-care.")
+
+# Sidebar with Lavender Background
+st.markdown(
+    """
     <style>
-        .sidebar .sidebar-content {
+        [data-testid="stSidebar"] {
             background-color: #E6E6FA !important;
         }
-        .st-eb {color: black !important;}
-        .sidebar .stButton>button {color: black !important;}
-        .sidebar .stSelectbox>div>div {color: black !important;}
+        [data-testid="stSidebarNav"] button {
+            color: black !important;
+        }
+        [data-testid="stSidebarNav"] div {
+            color: black !important;
+        }
     </style>
-""", unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
 
-st.title("🤍 MindEase")
-st.subheader("Your personal companion for motivation and self-care.")
-
-# Sidebar
-st.sidebar.title("🤍 MindEase Tools")
-if st.sidebar.button("✨ Need a boost? Inspire Me!"):
+st.sidebar.title("🧡 MindEase Tools")
+if st.sidebar.button("🌟 Need a boost? Inspire Me!"):
     st.sidebar.write(random.choice(motivation_prompts))
 
-if st.sidebar.button("🌿 Feeling anxious? Anxiety Relief"):
+if st.sidebar.button("🌱 Feeling anxious? Anxiety Relief"):
     st.sidebar.write(random.choice(anxiety_relief_prompts))
 
 # Emotion-Based Prompt System
-st.subheader("🙌 How are you feeling today?")
+st.subheader("😊 How are you feeling today?")
 emotion = st.selectbox("Select your emotion:", ["Happy", "Sad", "Anxious", "Motivated", "Frustrated", "Tired"])
 prompt_mapping = {
-    "Happy": "🌟 Keep spreading the joy! Happiness is contagious.",
+    "Happy": "🎉 Keep spreading the joy! Happiness is contagious.",
     "Sad": "💔 It’s okay to feel sad. Take it one step at a time, and be kind to yourself.",
     "Anxious": random.choice(anxiety_relief_prompts),
-    "Motivated": "🌟 Keep up the great work! Channel your motivation into your goals.",
-    "Frustrated": "💨 Take a deep breath. A short break might help clear your mind.",
-    "Tired": "💖 Rest is just as important as work. Give yourself a moment to recharge."
+    "Motivated": "💪 Keep up the great work! Channel your motivation into your goals.",
+    "Frustrated": "😅 Take a deep breath. A short break might help clear your mind.",
+    "Tired": "💕 Rest is just as important as work. Give yourself a moment to recharge."
 }
 st.write(prompt_mapping[emotion])
 
@@ -70,8 +76,4 @@ st.write(prompt_mapping[emotion])
 st.subheader("✨ Daily Affirmation")
 current_date = datetime.datetime.now().day
 affirmation = motivation_prompts[current_date % len(motivation_prompts)]
-st.markdown(f"""
-    <div style="background-color:#E6E6FA; padding:10px; border-radius:10px;">
-        <p style="color:black; font-size:18px;">{affirmation}</p>
-    </div>
-""", unsafe_allow_html=True)
+st.markdown(f'<div style="padding: 10px; background-color: #E6E6FA; color: black; border-radius: 10px;">{affirmation}</div>', unsafe_allow_html=True)
