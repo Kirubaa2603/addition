@@ -1,9 +1,11 @@
-import streamlit as st
+
+
+import streamlit as st  # ✅ No code before this
 import random
 import datetime
 
-# This must be at the very top before any st. commands
-st.set_page_config(page_title="MindEase", layout="wide")
+st.set_page_config(page_title="MindEase", layout="wide")  # ✅ Must be first Streamlit command
+
 
 # Apply custom CSS for color themes and dark mode
 def apply_css():
