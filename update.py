@@ -59,25 +59,44 @@ self_care_tips = [
 ]
 
 st.set_page_config(page_title="MindEase", layout="wide")
+
+# Custom CSS for Sidebar and Text Colors
+st.markdown(
+    """
+    <style>
+        .sidebar .sidebar-content {
+            background-color: #98FF98 !important;
+        }
+        .sidebar .stButton>button {
+            color: black !important;
+        }
+        .sidebar .stText {
+            color: black !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.title("🌿 Welcome to MindEase")
 st.subheader("Your personal companion for motivation, study tips, and self-care.")
 
 # Sidebar
-st.sidebar.title("MindEase Tools")
-if st.sidebar.button("Need a boost? Inspire Me!"):
+st.sidebar.title("🌟 MindEase Tools")
+if st.sidebar.button("💡 Need a boost? Inspire Me!"):
     st.sidebar.write(random.choice(motivation_prompts))
 
-if st.sidebar.button("Feeling anxious? Anxiety Relief"):
+if st.sidebar.button("🧘 Feeling anxious? Anxiety Relief"):
     st.sidebar.write(random.choice(anxiety_relief_prompts))
 
-if st.sidebar.button("Study Tips"):
+if st.sidebar.button("📖 Study Tips"):
     st.sidebar.write(random.choice(study_tips))
 
-if st.sidebar.button("Self-care Tips"):
+if st.sidebar.button("💆 Self-care Tips"):
     st.sidebar.write(random.choice(self_care_tips))
 
 # Emotion-Based Prompt System
-st.subheader("How do you feel today?")
+st.subheader("😊 How do you feel today?")
 emotion = st.selectbox("Select your emotion:", ["Happy", "Sad", "Anxious", "Motivated", "Frustrated", "Tired"])
 prompt_mapping = {
     "Happy": "Keep spreading the joy! Happiness is contagious.",
@@ -102,15 +121,22 @@ if generate_plan:
         study_plan[f"Subject {i}"] = f"Study for {round(time_duration / num_subjects, 2)} minutes."
     st.write(study_plan)
 
-# Daily Affirmations
+# Daily Affirmations with Styled Card
 st.subheader("✨ Daily Affirmation")
 current_date = datetime.datetime.now().day
 affirmation = motivation_prompts[current_date % len(motivation_prompts)]
-st.write(affirmation)
+st.markdown(
+    f"""
+    <div style="background-color:#E0FBE0;padding:10px;border-radius:10px;text-align:center;">
+        <p style="color:black;font-size:16px;">{affirmation}</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # Study Timer
 st.subheader("⏳ Study Timer")
 study_time = st.number_input("Set your study duration (minutes):", min_value=10, max_value=180, step=5)
 break_time = st.selectbox("Break duration:", [5, 10, 15])
 if st.button("Start Timer"):
-    st.write(f"Study for {study_time} minutes, then take a {break_time}-minute break.")
+    st.write(f"Study for {study_time} minutes, then take a {break_time}-minute break. 🧘")
