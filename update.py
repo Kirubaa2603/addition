@@ -1,26 +1,32 @@
 import streamlit as st
 import random
 
-# Set Page Configuration
-st.set_page_config(page_title="MindEase", layout="wide")
-
-# Dark Mode Toggle
-if "dark_mode" not in st.session_state:
-    st.session_state["dark_mode"] = False
+def set_theme():
+    if "dark_mode" not in st.session_state:
+        st.session_state.dark_mode = False
+    return "black" if st.session_state.dark_mode else "white"
 
 def toggle_theme():
-    st.session_state["dark_mode"] = not st.session_state["dark_mode"]
+    st.session_state.dark_mode = not st.session_state.dark_mode
+
+st.set_page_config(page_title="MindEase", layout="wide")
+
+background_color = set_theme()
+st.markdown(
+    f"""
+    <style>
+        body {{
+            background-color: {background_color};
+            color: {'white' if background_color == 'black' else 'black'};
+        }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 st.sidebar.button("🌗 Toggle Dark Mode", on_click=toggle_theme)
 
-theme_bg = "#1E1E1E" if st.session_state["dark_mode"] else "#E6E6FA"  # Black for dark mode, Lavender for light mode
-st.markdown(f"""
-    <style>
-        .stApp {{ background-color: {theme_bg}; }}
-    </style>
-""", unsafe_allow_html=True)
-
-# Sidebars
+# Sidebar Sections
 if st.sidebar.button("💡 Need a boost? Inspire Me!"):
     st.sidebar.write(random.choice([
         "Believe in yourself! You are capable of amazing things.",
@@ -94,19 +100,17 @@ prompt_mapping = {
 }
 st.write(prompt_mapping[emotion])
 
-# 📅 Study Planner
-st.subheader("📅 Plan Your Study Schedule")
-num_subjects = st.number_input("Enter the number of subjects:", min_value=1, step=1)
-subjects = []
-for i in range(num_subjects):
-    subject = st.text_input(f"Enter Subject {i+1}:")
-    subjects.append(subject)
+# 📖 Study Planner
+st.subheader("📅 Study Planner")
+num_subjects = st.number_input("How many subjects do you have?", min_value=1, max_value=10, step=1)
+subjects = [st.text_input(f"Enter subject {i+1} name:") for i in range(num_subjects)]
 
-time_pref = st.selectbox("Preferred Study Time:", ["Morning", "Evening"])
-study_time = st.time_input("Enter study start time:")
+study_time_preference = st.selectbox("When do you prefer studying?", ["Morning", "Evening"])
+total_study_hours = st.number_input("Enter total study hours per day:", min_value=1, max_value=12, step=1)
 
 if st.button("Generate Study Plan"):
-    st.write("### Your Study Plan")
+    hours_per_subject = total_study_hours / num_subjects
+    st.write("Your Study Plan:")
     for subject in subjects:
         if subject:
-            st.write(f"- Study {subject} in the {time_pref} at {study_time}")
+            st.write(f"{subject}: {hours_per_subject:.2f} hours in the {study_time_preference.lower()}.")
